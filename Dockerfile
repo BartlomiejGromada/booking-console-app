@@ -1,27 +1,20 @@
-FROM mcr.microsoft.com/dotnet/runtime:8.0 AS base
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-USER app
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG configuration=Release
 WORKDIR /src
-# COPY ["booking-app.csproj", "./"]
 
 COPY . .
-RUN dotnet restore "booking-app.csproj"
-RUN dotnet restore "./booking-app-tests/booking-app-tests.csproj"
 
-RUN dotnet build "booking-app.csproj" -c $configuration -o /app/build
+RUN dotnet restore "booking-app/booking-app.csproj"
+RUN dotnet restore "booking-app-tests/booking-app-tests.csproj"
 
-RUN dotnet test "./booking-app-tests/booking-app-tests.csproj" --no-build --verbosity normal
+RUN dotnet build "booking-app-tests/booking-app-tests.csproj" -c Release
+RUN dotnet test "booking-app-tests/booking-app-tests.csproj" --verbosity normal
 
-WORKDIR "/src/."
+RUN dotnet publish "booking-app/booking-app.csproj" -c Release -o /app/publish
 
-FROM build AS publish
-ARG configuration=Release
-RUN dotnet publish "booking-app.csproj" -c $configuration -o /app/publish
+FROM mcr.microsoft.com/dotnet/runtime:8.0 AS final
 
-FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+
 ENTRYPOINT ["dotnet", "booking-app.dll"]

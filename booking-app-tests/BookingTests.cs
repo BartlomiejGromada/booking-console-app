@@ -2,7 +2,7 @@ using booking_app.Entities;
 
 namespace booking_app_tests;
 
-public class BookingAppTests
+public class BookingTests
 {
     public static IEnumerable<object[]> DateForOverlapingReturnTrue =>
         [
@@ -20,7 +20,7 @@ public class BookingAppTests
 
     [Theory]
     [MemberData(nameof(DateForOverlapingReturnTrue))]
-    public void booking_is_overlapping_should_return_true(
+    public void Booking_Is_Overlapping_Should_Return_True(
         DateOnly arrivalDate,
         DateOnly? departureDate = null)
     {
@@ -37,7 +37,7 @@ public class BookingAppTests
 
     [Theory]
     [MemberData(nameof(DateForOverlapingReturnFalse))]
-    public void booking_is_overlapping_should_return_false(
+    public void Booking_Is_Overlapping_Should_Return_False(
       DateOnly arrivalDate,
       DateOnly? departureDate = null)
     {

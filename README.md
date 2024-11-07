@@ -1,9 +1,6 @@
 # Booking Console App
 
-
 # To run this application, you need the following:
-
-- **.NET SDK** version 8.0 or higher. You can download and install it from the [official .NET website](https://dotnet.microsoft.com/download).
 
 # Json files
 - If you need to modify the booking or hotel data, navigate to the "Files" folder and make the necessary changes there.
@@ -20,24 +17,12 @@ git clone https://github.com/BartlomiejGromada/booking-console-app
 cd booking-console-app
 ```
 
-### 3. Install external dependencies, you can install them using:
+### 3. Run the process of building a Docker image based on the Dockerfile located in the current directory by using the command:
 ```bash
-dotnet restore
+docker build -t booking-app .
 ```
 
-### 4. Build app
+### 4. Run app by this command:
 ```bash
-dotnet build
+docker run -it booking-app
 ```
-
-### 5. Run app
-```bash
-dotnet run
-```
-* For subsequent executions, simply use the same command:
-```bash
-dotnet run
-```
-
-
-
