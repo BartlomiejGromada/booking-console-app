@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "booking-app": {
+      "commandName": "Project",
+      "commandLineArgs": "Files/hotels.json\r\nFiles/bookings.json"
+    }
+  }
+}
